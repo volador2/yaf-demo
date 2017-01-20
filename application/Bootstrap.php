@@ -35,7 +35,7 @@ class Bootstrap extends Yaf_Bootstrap_Abstract
 
         $autoload_file = $config['application']['autoload_path'];
         if (!file_exists($autoload_file)) {
-            die("{$autoload_file} not found, exit !!!");
+            die("require autoload_file {$autoload_file} not found, exit !!!");
         }
 
         require($autoload_file);
@@ -58,7 +58,7 @@ class Bootstrap extends Yaf_Bootstrap_Abstract
 
         $log_dir = dirname($log_file);
         if (!file_exists($log_dir)) {
-            dir ("{$log_dir} not found, exit!!!");
+            dir ("log dir: {$log_dir} not found, exit!!!");
         }
 
         LogConfig::logfile($log_file);
