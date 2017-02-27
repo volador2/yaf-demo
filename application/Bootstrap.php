@@ -20,8 +20,6 @@ class Bootstrap extends Yaf_Bootstrap_Abstract
         // 运行环境
         $env = ini_get('yaf.environ');
         defined('APP_ENV') or define('APP_ENV', $env);
-
-        // TODO:
     }
 
     /**
@@ -79,5 +77,24 @@ class Bootstrap extends Yaf_Bootstrap_Abstract
 
             LogConfig::setTemplateVal('TRACE_ID', $_REQUEST['TRACE_ID']);
         }
+    }
+
+    /**
+     * 错误处理, 放到 _init_Logger 之后 注意顺序
+     * @param  Yaf_Dispatcher $dispatcher [description]
+     * @return [type]                     [description]
+     */
+    public function _init_ErrorHander(Yaf_Dispatcher $dispatcher)
+    {
+        // PHP Fatal error
+        register_shutdown_function(function() {
+            $e = error_get_last();
+            if ($e) {
+                printf("=================== 致命错误 ===================\n");
+                print_r($e);
+            }
+        });
+
+        // set_error_handler
     }
 }
